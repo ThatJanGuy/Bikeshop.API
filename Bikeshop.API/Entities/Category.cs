@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ZeBaikshobb.API.Entities
+namespace Bikeshop.API.Entities
 {
     public class Category
     {
