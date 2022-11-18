@@ -38,5 +38,31 @@ namespace Bikeshop.API.Services
 
             return collectionToReturn;
         }
+        public async Task<Category?> GetCategoryAsync(Guid categoryId, bool includeBikes = false)
+        {
+            if (includeBikes)
+            {
+                return await context.Categories.Include(c => c.Bikes)
+                                               .Where(c => c.Id == categoryId)
+                                               .FirstOrDefaultAsync();
+            }
+
+            return await context.Categories.Where(c => c.Id == categoryId)
+                                           .FirstOrDefaultAsync();
+        }
+
+        public async Task AddBikeToCategory(Guid categoryId, Bike bike)
+        {
+            var categoryToAddTo = await GetCategoryAsync(categoryId);
+            if (categoryToAddTo != null)
+            {
+                categoryToAddTo.Bikes.Add(bike);
+            }
+        }
+
+        public async Task<bool> SaveChangesAsync()
+        {
+            return (await context.SaveChangesAsync() >= 0);
+        }
     }
 }
