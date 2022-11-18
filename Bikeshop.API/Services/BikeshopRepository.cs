@@ -16,11 +16,27 @@ namespace Bikeshop.API.Services
             this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public async Task<IEnumerable<Bike>> GetBikesAsync()
+        public async Task<IEnumerable<Bike>> GetBikesAsync(string? name, string? searchQuery)
         {
-            return await context.Bikes
-                .OrderBy(b => b.Name)
+            var collection = context.Bikes as IQueryable<Bike>;
+
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                name = name.Trim();
+                collection = collection.Where(b => b.Name == name); 
+            }
+
+            if (!string.IsNullOrWhiteSpace(searchQuery))
+            {
+                searchQuery = searchQuery.Trim();
+                collection = collection.Where(b => b.Name.Contains(searchQuery) ||
+                (b.FullDescription != null && b.FullDescription.Contains(searchQuery)));
+            }
+
+            var collectionToReturn = await collection.OrderBy(b => b.Name)
                 .ToListAsync();
+
+            return collectionToReturn;
         }
     }
 }

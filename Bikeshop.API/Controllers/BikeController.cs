@@ -20,9 +20,9 @@ namespace Bikeshop.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<BikeDto>>> GetBikes()
+        public async Task<ActionResult<IEnumerable<BikeDto>>> GetBikes(string? name, string? searchQuery)
         {
-            var bikeEntities = await bikeshopRepository.GetBikesAsync();
+            var bikeEntities = await bikeshopRepository.GetBikesAsync(name, searchQuery);
             return Ok(mapper.Map<IEnumerable<BikeDto>>(bikeEntities));
         }
     }
