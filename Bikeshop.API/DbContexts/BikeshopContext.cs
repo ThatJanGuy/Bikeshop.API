@@ -12,6 +12,19 @@ namespace Bikeshop.API.DbContexts
 
         public DbSet<Bike> Bikes { get; set; } = null!;
         public DbSet<Category> Categories { get; set; } = null!;
-    }
 
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Bike>().HasData(
+                new Bike("Penny Farthing")
+                {
+                    Id = Guid.NewGuid()
+                },
+                new Bike("Mountainbike")
+                {
+                    Id = Guid.NewGuid()
+                });
+        }
+    }
 }

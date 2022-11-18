@@ -19,9 +19,8 @@ namespace Bikeshop.API.Entities
         [MaxLength(100)]
         public string Name { get; set; }
 
-        [Required]
         [MaxLength(200)]
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         public ICollection<Bike> Bikes { get; set; }
             = new List<Bike>();

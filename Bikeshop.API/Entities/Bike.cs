@@ -5,13 +5,9 @@ namespace Bikeshop.API.Entities
 {
     public class Bike
     {
-        public Bike(string name, string shortDescription, string fullDescription, double price, string pictureUrl)
+        public Bike(string name)
         {
             Name = name;
-            ShortDescription = shortDescription;
-            FullDescription = fullDescription;
-            Price = price;
-            PictureUrl = pictureUrl;
         }
 
         [Key]
@@ -22,24 +18,20 @@ namespace Bikeshop.API.Entities
         [MaxLength(100)]
         public string Name { get; set; }
 
-        [Required]
         [MaxLength(200)]
-        public string ShortDescription { get; set; }
+        public string? ShortDescription { get; set; }
 
-        [Required]
         [MaxLength(10000)]
-        public string FullDescription { get; set; }
+        public string? FullDescription { get; set; }
 
-        [Required]
-        public double Price { get; set; }
+        public double? Price { get; set; }
 
-        [Required]
-        public string PictureUrl { get; set; }
+        [MaxLength(2048)]
+        public string? PictureUrl { get; set; }
 
         [ForeignKey("CategoryId")]
         public Category? Category { get; set; }
-        public Guid CategoryId { get; set; }
-
+        public Guid? CategoryId { get; set; }
         public string? Colour { get; set; }
     }
 }

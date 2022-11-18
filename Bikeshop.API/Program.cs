@@ -1,4 +1,5 @@
 using Bikeshop.API.DbContexts;
+using Bikeshop.API.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,7 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddDbContext<BikeshopContext>(
     dbContextOptions => dbContextOptions.UseSqlServer(
     builder.Configuration["ConnectionStrings:BikeshopDBConnectionString"]));
+builder.Services.AddScoped<IBikeshopRepository, BikeshopRepository>();
 
 
 var app = builder.Build();
