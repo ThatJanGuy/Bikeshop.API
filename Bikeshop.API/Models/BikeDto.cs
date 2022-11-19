@@ -12,6 +12,7 @@ namespace Bikeshop.API.Models
         public string? FullDescription { get; set; }
         public double? Price { get; set; }
         public string? PictureUrl { get; set; }
+        public Guid? CategoryId { get; set; }
         public string? Colour { get; set; }
     }
 }
