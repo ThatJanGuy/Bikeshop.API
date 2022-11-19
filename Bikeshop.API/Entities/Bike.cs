@@ -5,9 +5,10 @@ namespace Bikeshop.API.Entities
 {
     public class Bike
     {
-        public Bike(string name)
+        public Bike(string name, Guid categoryId)
         {
             Name = name;
+            CategoryId = categoryId;
         }
 
         [Key]
