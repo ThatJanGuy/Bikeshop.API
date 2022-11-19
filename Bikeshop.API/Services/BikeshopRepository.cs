@@ -65,6 +65,11 @@ namespace Bikeshop.API.Services
         // Regarding Categories
         //
 
+        public async Task<IEnumerable<Category>> GetCategoriesAsync()
+        {
+            return await context.Categories.ToListAsync();
+        }
+
         public async Task<Category?> GetCategoryAsync(Guid categoryId, bool includeBikes = false)
         {
             if (includeBikes)

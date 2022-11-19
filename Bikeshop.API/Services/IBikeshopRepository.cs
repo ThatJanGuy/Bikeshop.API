@@ -5,6 +5,23 @@ namespace Bikeshop.API.Services
 {
     public interface IBikeshopRepository
     {
+        //
+        // Regarding Bikes
+        //
         Task<(IEnumerable<Bike>, PaginationMetadata)> GetBikesAsync(Guid? bikeId, string? searchQuery, int pageNumber, int pageSize);
+        Task AddBikeToCategory(Guid categoryId, Bike bike);
+        Task<bool> BikeExistsAsync(Guid bikeId);
+
+        //
+        // Regarding Categories
+        //
+        Task<IEnumerable<Category>> GetCategoriesAsync();
+        Task<IEnumerable<Category?>> GetCategoryAsync(Guid? categoryId, bool includeBikes);
+        Task<bool> CategoryExistsAsync(Guid categoryId);
+
+        //
+        // General
+        //
+        Task<bool> SaveChangesAsync();
     }
 }
