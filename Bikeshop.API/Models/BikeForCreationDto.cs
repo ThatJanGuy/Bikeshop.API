@@ -1,23 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Bikeshop.API.Entities;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
-namespace Bikeshop.API.Entities
+namespace Bikeshop.API.Models
 {
-    public class Bike
+    public class BikeForCreationDto
     {
-        public Bike(string name, Guid categoryId)
-        {
-            Name = name;
-            CategoryId = categoryId;
-        }
-
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Id { get; set; }
-
         [Required]
         [MaxLength(100)]
         public string Name { get; set; }
+
+        [Required]
+        public Guid CategoryId { get; set; }
 
         [MaxLength(200)]
         public string? ShortDescription { get; set; }
@@ -30,9 +24,6 @@ namespace Bikeshop.API.Entities
         [MaxLength(2048)]
         public string? PictureUrl { get; set; }
 
-        [ForeignKey("CategoryId")]
-        public Category Category { get; set; }
-        public Guid CategoryId { get; set; }
         public string? Colour { get; set; }
     }
 }
