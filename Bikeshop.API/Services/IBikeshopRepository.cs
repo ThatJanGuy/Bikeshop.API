@@ -8,15 +8,16 @@ namespace Bikeshop.API.Services
         //
         // Regarding Bikes
         //
-        Task<(IEnumerable<Bike>, PaginationMetadata)> GetBikesAsync(Guid? bikeId, string? searchQuery, int pageNumber, int pageSize);
-        Task AddBikeToCategory(Guid categoryId, Bike bike);
+        Task<(IEnumerable<Bike>, PaginationMetadata)> GetBikesAsync(string? searchQuery, int pageNumber, int pageSize);
+        Task<Bike?> GetBikeAsync(Guid bikeId);
+        Task AddBikeToCategoryAsync(Guid categoryId, Bike bike);
         Task<bool> BikeExistsAsync(Guid bikeId);
 
         //
         // Regarding Categories
         //
-        Task<IEnumerable<Category>> GetCategoriesAsync();
-        Task<IEnumerable<Category?>> GetCategoryAsync(Guid? categoryId, bool includeBikes);
+        Task<IEnumerable<Category>?> GetCategoriesAsync();
+        Task<Category?> GetCategoryAsync(Guid categoryId, bool includeBikes);
         Task<bool> CategoryExistsAsync(Guid categoryId);
 
         //
