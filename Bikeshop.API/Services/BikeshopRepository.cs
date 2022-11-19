@@ -51,7 +51,7 @@ namespace Bikeshop.API.Services
 
         public async Task AddBikeToCategoryAsync(Guid categoryId, Bike bike)
         {
-            var categoryToAddTo = await GetCategoryAsync(categoryId);
+            var categoryToAddTo = await GetCategoryAsync(categoryId, false);
             if (categoryToAddTo != null)
             {
                 categoryToAddTo.Bikes.Add(bike);
@@ -73,7 +73,7 @@ namespace Bikeshop.API.Services
             return await context.Categories.ToListAsync();
         }
 
-        public async Task<Category?> GetCategoryAsync(Guid categoryId, bool includeBikes = false)
+        public async Task<Category?> GetCategoryAsync(Guid categoryId, bool includeBikes)
         {
             if (includeBikes)
             {

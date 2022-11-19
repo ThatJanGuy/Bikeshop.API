@@ -31,7 +31,7 @@ namespace Bikeshop.API.Entities
         public string? PictureUrl { get; set; }
 
         [ForeignKey("CategoryId")]
-        public Category Category { get; set; }
+        public Category Category { get; set; } = null!;
         public Guid CategoryId { get; set; }
         public string? Colour { get; set; }
     }

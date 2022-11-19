@@ -26,5 +26,16 @@ namespace Bikeshop.API.Controllers
 
             return Ok(mapper.Map<IEnumerable<CategoryWithoutBikesDto>>(categoriesEntity));
         }
+
+        [HttpGet("{categoryId}", Name = "GetCategory")]
+        public async Task<ActionResult<CategoryDto>> GetCategory(Guid categoryId, bool includeBikes = false)
+        {
+            var categoryEntity = await bikeshopRepository.GetCategoryAsync(categoryId, includeBikes);
+            if (categoryEntity == null) return NotFound();
+
+            if (includeBikes) return Ok(mapper.Map<CategoryDto>(categoryEntity));
+
+            return Ok(mapper.Map<CategoryWithoutBikesDto>(categoryEntity));
+        }
     }
 }
