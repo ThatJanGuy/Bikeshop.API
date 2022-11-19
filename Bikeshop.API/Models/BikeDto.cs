@@ -1,8 +1,4 @@
-﻿using Bikeshop.API.Entities;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-
-namespace Bikeshop.API.Models
+﻿namespace Bikeshop.API.Models
 {
     public class BikeDto
     {

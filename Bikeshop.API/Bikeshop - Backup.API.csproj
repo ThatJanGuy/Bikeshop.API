@@ -8,8 +8,11 @@
 
   <ItemGroup>
     <Compile Remove="Models\Class.cs" />
-    <Compile Remove="Profiles\Class.cs" />
-    <Compile Remove="Profiles\Class1.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Profiles\CategoryProfile.cs" />
+    <Compile Include="Profiles\CategoryProfile1.cs" />
   </ItemGroup>
 
   <ItemGroup>
