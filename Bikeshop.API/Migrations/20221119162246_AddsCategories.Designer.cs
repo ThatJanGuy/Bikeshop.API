@@ -4,6 +4,7 @@ using Bikeshop.API.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bikeshop.API.Migrations
 {
     [DbContext(typeof(BikeshopContext))]
-    partial class BikeshopContextModelSnapshot : ModelSnapshot
+    [Migration("20221119162246_AddsCategories")]
+    partial class AddsCategories
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -63,16 +66,14 @@ namespace Bikeshop.API.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("1e3ce34f-5fb8-4991-828c-f31ddf3a4792"),
-                            CategoryId = new Guid("ed4e9bee-5810-40b8-b906-91c92f134ece"),
+                            Id = new Guid("184c54ce-1811-40d9-9f6f-8eeff98035ca"),
                             FullDescription = "It might look very silly nowadays, but it sure does turn heads.",
                             Name = "Penny Farthing",
                             ShortDescription = "That iconic bike"
                         },
                         new
                         {
-                            Id = new Guid("01d80c1c-25d1-4564-af58-a01663937f22"),
-                            CategoryId = new Guid("e41b9f14-f19f-4dca-8462-bf33d8ce0bb2"),
+                            Id = new Guid("aa655ffe-74e0-480f-bb3c-49bd7055620e"),
                             FullDescription = "The number one choice for mountainous adventures.",
                             Name = "Aplha Explorer",
                             ShortDescription = "Mud has nothing on it"

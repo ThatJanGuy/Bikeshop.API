@@ -19,11 +19,29 @@ namespace Bikeshop.API.DbContexts
             modelBuilder.Entity<Bike>().HasData(
                 new Bike("Penny Farthing")
                 {
-                    Id = Guid.NewGuid()
+                    Id = Guid.NewGuid(),
+                    ShortDescription = "That iconic bike",
+                    FullDescription = "It might look very silly nowadays, but it sure does turn heads.",
+                    CategoryId = new Guid("ed4e9bee-5810-40b8-b906-91c92f134ece")
                 },
-                new Bike("Mountainbike")
+                new Bike("Aplha Explorer")
                 {
-                    Id = Guid.NewGuid()
+                    Id = Guid.NewGuid(),
+                    ShortDescription = "Mud has nothing on it",
+                    FullDescription = "The number one choice for mountainous adventures.",
+                    CategoryId = new Guid("e41b9f14-f19f-4dca-8462-bf33d8ce0bb2")
+                });;
+
+            modelBuilder.Entity<Category>().HasData(
+                new Category("Specialty bikes")
+                {
+                    Id = new Guid("ed4e9bee-5810-40b8-b906-91c92f134ece"),
+                    Description = "The bikes you always wanted"
+                },
+                new Category("Mountainbikes")
+                {
+                    Id = new Guid("e41b9f14-f19f-4dca-8462-bf33d8ce0bb2"),
+                    Description = "Metal goats"
                 });
         }
     }
