@@ -14,6 +14,10 @@ namespace Bikeshop.API.Services
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
+        //
+        // Regarding Bikes
+        //
+
         public async Task<(IEnumerable<Bike>, PaginationMetadata)> GetBikesAsync(Guid? bikeId, string? searchQuery, int pageNumber, int pageSize)
         {
             var collection = context.Bikes as IQueryable<Bike>;
@@ -42,6 +46,24 @@ namespace Bikeshop.API.Services
 
             return (collectionToReturn, paginationMetadata);
         }
+        public async Task AddBikeToCategory(Guid categoryId, Bike bike)
+        {
+            var categoryToAddTo = await GetCategoryAsync(categoryId);
+            if (categoryToAddTo != null)
+            {
+                categoryToAddTo.Bikes.Add(bike);
+            }
+        }
+
+        public async Task<bool> BikeExistsAsync(Guid bikeId)
+        {
+            return await context.Bikes.AnyAsync(b => b.Id == bikeId);
+        }
+
+
+        //
+        // Regarding Categories
+        //
 
         public async Task<Category?> GetCategoryAsync(Guid categoryId, bool includeBikes = false)
         {
@@ -56,14 +78,14 @@ namespace Bikeshop.API.Services
                                            .FirstOrDefaultAsync();
         }
 
-        public async Task AddBikeToCategory(Guid categoryId, Bike bike)
+        public async Task<bool> CategoryExistsAsync(Guid categoryId)
         {
-            var categoryToAddTo = await GetCategoryAsync(categoryId);
-            if (categoryToAddTo != null)
-            {
-                categoryToAddTo.Bikes.Add(bike);
-            }
+            return await context.Categories.AnyAsync(c => c.Id == categoryId);
         }
+
+        //
+        // General
+        //
 
         public async Task<bool> SaveChangesAsync()
         {
