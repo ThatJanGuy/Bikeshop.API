@@ -5,6 +5,6 @@ namespace Bikeshop.API.Services
 {
     public interface IBikeshopRepository
     {
-        Task<IEnumerable<Bike>> GetBikesAsync(Guid? bikeId, string? searchQuery);
+        Task<(IEnumerable<Bike>, PaginationMetadata)> GetBikesAsync(Guid? bikeId, string? searchQuery, int pageNumber, int pageSize);
     }
 }

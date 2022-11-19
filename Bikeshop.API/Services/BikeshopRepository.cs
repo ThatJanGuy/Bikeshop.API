@@ -14,7 +14,7 @@ namespace Bikeshop.API.Services
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<IEnumerable<Bike>> GetBikesAsync(Guid? bikeId, string? searchQuery)
+        public async Task<(IEnumerable<Bike>, PaginationMetadata)> GetBikesAsync(Guid? bikeId, string? searchQuery, int pageNumber, int pageSize)
         {
             var collection = context.Bikes as IQueryable<Bike>;
 
@@ -30,11 +30,19 @@ namespace Bikeshop.API.Services
                 (b.FullDescription != null && b.FullDescription.Contains(searchQuery)));
             }
 
-            var collectionToReturn = await collection.OrderBy(b => b.Name)
+            var totalItemCount = await collection.CountAsync();
+
+            var paginationMetadata = new PaginationMetadata(totalItemCount, pageSize, pageNumber);
+
+            var collectionToReturn = await collection
+                .OrderBy(b => b.Name)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
                 .ToListAsync();
 
-            return collectionToReturn;
+            return (collectionToReturn, paginationMetadata);
         }
+
         public async Task<Category?> GetCategoryAsync(Guid categoryId, bool includeBikes = false)
         {
             if (includeBikes)
