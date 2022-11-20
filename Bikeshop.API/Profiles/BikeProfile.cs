@@ -7,7 +7,7 @@ namespace Bikeshop.API.Profiles
         public BikeProfile()
         {
             CreateMap<Entities.Bike, Models.BikeDto>();
-            CreateMap<Models.BikeForCreationDto, Entities.Bike>();
+            CreateMap<Models.BikeForCreationOrFullUpdateDto, Entities.Bike>();
         }
     }
 }

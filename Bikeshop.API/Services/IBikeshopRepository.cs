@@ -1,4 +1,5 @@
 ﻿using Bikeshop.API.Entities;
+using Bikeshop.API.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bikeshop.API.Services

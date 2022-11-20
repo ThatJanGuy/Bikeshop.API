@@ -43,7 +43,7 @@ namespace Bikeshop.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<BikeDto>> CreateBike(Guid categoryId, BikeForCreationDto bike)
+        public async Task<ActionResult<BikeDto>> CreateBike(Guid categoryId, BikeForCreationOrFullUpdateDto bike)
         {
             if (!await bikeshopRepository.CategoryExistsAsync(categoryId))
                 return NotFound();
@@ -61,6 +61,20 @@ namespace Bikeshop.API.Controllers
                 new { bikeId = createdBikeToReturn.Id },
                 createdBikeToReturn
                 );
+        }
+
+        [HttpPut("{bikeId}")]
+        public async Task<ActionResult> UpdateBike(Guid bikeId, BikeForCreationOrFullUpdateDto bike)
+        {
+            var bikeEntity = await bikeshopRepository.GetBikeAsync(bikeId);
+            if (bikeEntity == null) 
+                return NotFound();
+
+            mapper.Map(bike, bikeEntity);
+
+            await bikeshopRepository.SaveChangesAsync();
+
+            return NoContent();
         }
     }
 }
