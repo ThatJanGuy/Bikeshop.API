@@ -57,6 +57,11 @@ namespace Bikeshop.API.Services
             }
         }
 
+        public void DeleteBike(Bike bike)
+        {
+            context.Bikes.Remove(bike);
+        }
+
         public async Task<bool> BikeExistsAsync(Guid bikeId)
         {
             return await context.Bikes.AnyAsync(b => b.Id == bikeId);

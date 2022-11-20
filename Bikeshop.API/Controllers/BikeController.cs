@@ -76,5 +76,18 @@ namespace Bikeshop.API.Controllers
 
             return NoContent();
         }
+
+        [HttpDelete("{bikeId}")]
+        public async Task<ActionResult> DeleteBike(Guid bikeId)
+        {
+            var bikeEntity = await bikeshopRepository.GetBikeAsync(bikeId);
+            if (bikeEntity == null)
+                return NotFound();
+
+            bikeshopRepository.DeleteBike(bikeEntity);
+            await bikeshopRepository.SaveChangesAsync();
+
+            return NoContent();
+        }
     }
 }

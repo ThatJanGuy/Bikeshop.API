@@ -12,6 +12,7 @@ namespace Bikeshop.API.Services
         Task<(IEnumerable<Bike>, PaginationMetadata)> GetBikesAsync(string? searchQuery, int pageNumber, int pageSize);
         Task<Bike?> GetBikeAsync(Guid bikeId);
         Task AddBikeToCategoryAsync(Guid categoryId, Bike bike);
+        void DeleteBike(Bike bike);
         Task<bool> BikeExistsAsync(Guid bikeId);
 
         //
