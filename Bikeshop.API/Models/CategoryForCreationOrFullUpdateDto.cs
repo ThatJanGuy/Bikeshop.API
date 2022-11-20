@@ -2,7 +2,7 @@
 
 namespace Bikeshop.API.Models
 {
-    public class CategoryForCreationDto
+    public class CategoryForCreationOrFullUpdateDto
     {
         [Required]
         [MaxLength(100)]

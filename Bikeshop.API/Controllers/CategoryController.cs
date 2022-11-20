@@ -39,7 +39,7 @@ namespace Bikeshop.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<CategoryWithoutBikesDto>> CreateCategory(CategoryForCreationDto category)
+        public async Task<ActionResult<CategoryWithoutBikesDto>> CreateCategory(CategoryForCreationOrFullUpdateDto category)
         {
             var categoryToCreate = mapper.Map<Entities.Category>(category);
 
@@ -54,6 +54,20 @@ namespace Bikeshop.API.Controllers
                 new { categoryId = createdCategoryToReturn.Id },
                 createdCategoryToReturn
                 );
+        }
+
+        [HttpPut("{categoryId}")]
+        public async Task<ActionResult> UpdateCategory(Guid categoryId, CategoryForCreationOrFullUpdateDto category)
+        {
+            var categoryEntity = await bikeshopRepository.GetCategoryAsync(categoryId, true);
+            if (categoryEntity == null) 
+                return NotFound();
+
+            mapper.Map(category, categoryEntity);
+
+            await bikeshopRepository.SaveChangesAsync();
+
+            return NoContent();
         }
     }
 }
