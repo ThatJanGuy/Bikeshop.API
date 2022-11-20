@@ -21,6 +21,8 @@ namespace Bikeshop.API.Services
         Task<IEnumerable<Category>?> GetCategoriesAsync();
         Task<Category?> GetCategoryAsync(Guid categoryId, bool includeBikes);
         void AddCategory(Category category);
+        void DeleteCategory(Category category);
+
         Task<bool> CategoryExistsAsync(Guid categoryId);
 
         //

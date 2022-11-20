@@ -95,6 +95,11 @@ namespace Bikeshop.API.Services
             context.Categories.Add(category);
         }
 
+        public void DeleteCategory(Category category)
+        {
+            context.Categories.Remove(category);
+        }
+
         public async Task<bool> CategoryExistsAsync(Guid categoryId)
         {
             return await context.Categories.AnyAsync(c => c.Id == categoryId);
