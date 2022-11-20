@@ -48,7 +48,6 @@ namespace Bikeshop.API.Services
             return await context.Bikes.Where(b => b.Id == bikeId).FirstOrDefaultAsync();
         }
 
-
         public async Task AddBikeToCategoryAsync(Guid categoryId, Bike bike)
         {
             var categoryToAddTo = await GetCategoryAsync(categoryId, false);
@@ -84,6 +83,11 @@ namespace Bikeshop.API.Services
 
             return await context.Categories.Where(c => c.Id == categoryId)
                                            .FirstOrDefaultAsync();
+        }
+
+        public void AddCategory(Category category)
+        {
+            context.Categories.Add(category);
         }
 
         public async Task<bool> CategoryExistsAsync(Guid categoryId)

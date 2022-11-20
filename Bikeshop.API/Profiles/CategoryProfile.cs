@@ -8,6 +8,7 @@ namespace Bikeshop.API.Profiles
         {
             CreateMap<Entities.Category, Models.CategoryDto>();
             CreateMap<Entities.Category, Models.CategoryWithoutBikesDto>();
+            CreateMap<Models.CategoryForCreationDto, Entities.Category>();
         }
     }
 }

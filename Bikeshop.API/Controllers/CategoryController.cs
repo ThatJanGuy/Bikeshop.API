@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Bikeshop.API.Controllers
 {
-    [Route("api/category")]
+    [Route("api/categories")]
     [ApiController]
     public class CategoryController : ControllerBase
     {
@@ -36,6 +36,24 @@ namespace Bikeshop.API.Controllers
             if (includeBikes) return Ok(mapper.Map<CategoryDto>(categoryEntity));
 
             return Ok(mapper.Map<CategoryWithoutBikesDto>(categoryEntity));
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<CategoryWithoutBikesDto>> CreateCategory(CategoryForCreationDto category)
+        {
+            var categoryToCreate = mapper.Map<Entities.Category>(category);
+
+            bikeshopRepository.AddCategory(categoryToCreate);
+
+            await bikeshopRepository.SaveChangesAsync();
+
+            var createdCategoryToReturn = mapper.Map<CategoryWithoutBikesDto>(categoryToCreate);
+
+            return CreatedAtRoute(
+                "GetCategory",
+                new { categoryId = createdCategoryToReturn.Id },
+                createdCategoryToReturn
+                );
         }
     }
 }
