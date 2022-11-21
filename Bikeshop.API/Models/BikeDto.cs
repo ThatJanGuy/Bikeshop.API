@@ -10,5 +10,6 @@
         public double? Price { get; set; }
         public string? PictureUrl { get; set; }
         public string? Colour { get; set; }
+        public byte[]? Image { get; set; }
     }
 }

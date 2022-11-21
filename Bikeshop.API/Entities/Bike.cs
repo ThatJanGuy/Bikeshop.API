@@ -34,5 +34,6 @@ namespace Bikeshop.API.Entities
         public Category Category { get; set; } = null!;
         public Guid CategoryId { get; set; }
         public string? Colour { get; set; }
+        public byte[]? Image { get; set; }   
     }
 }

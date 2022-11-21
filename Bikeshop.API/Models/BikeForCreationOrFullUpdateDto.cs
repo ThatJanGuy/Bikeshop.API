@@ -23,5 +23,7 @@ namespace Bikeshop.API.Models
         public string? PictureUrl { get; set; }
 
         public string? Colour { get; set; }
+
+        public byte[]? Image { get; set; }
     }
 }
