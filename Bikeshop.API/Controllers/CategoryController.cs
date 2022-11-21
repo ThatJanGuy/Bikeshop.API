@@ -1,12 +1,14 @@
 ﻿using AutoMapper;
 using Bikeshop.API.Models;
 using Bikeshop.API.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bikeshop.API.Controllers
 {
     [Route("api/categories")]
+    [Authorize]
     [ApiController]
     public class CategoryController : ControllerBase
     {
@@ -19,6 +21,7 @@ namespace Bikeshop.API.Controllers
             this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CategoryWithoutBikesDto>>> GetCategories()
         {
@@ -27,6 +30,7 @@ namespace Bikeshop.API.Controllers
             return Ok(mapper.Map<IEnumerable<CategoryWithoutBikesDto>>(categoriesEntity));
         }
 
+        [AllowAnonymous]
         [HttpGet("{categoryId}", Name = "GetCategory")]
         public async Task<ActionResult<CategoryDto>> GetCategory(Guid categoryId, bool includeBikes = false)
         {

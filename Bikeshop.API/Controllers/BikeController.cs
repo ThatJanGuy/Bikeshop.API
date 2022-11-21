@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Bikeshop.API.Models;
 using Bikeshop.API.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
@@ -8,6 +9,7 @@ using System.Text.Json;
 namespace Bikeshop.API.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("api/bikes")]
     public class BikeController : ControllerBase
     {
@@ -21,6 +23,7 @@ namespace Bikeshop.API.Controllers
             this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BikeDto>>> GetBikes(string? searchQuery, int pageNumber = 1, int pageSize = 25)
         {
@@ -33,6 +36,7 @@ namespace Bikeshop.API.Controllers
             return Ok(mapper.Map<IEnumerable<BikeDto>>(bikeEntities));
         }
 
+        [AllowAnonymous]
         [HttpGet("{bikeId}", Name = "GetBike")]
         public async Task<ActionResult<BikeDto>> GetBike(Guid bikeId)
         {
