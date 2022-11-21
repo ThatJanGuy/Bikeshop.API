@@ -3,6 +3,7 @@ using Bikeshop.API.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Reflection;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +13,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(setupAction => 
 {
+    var xmlCommentsFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.documentation.xml";
+    var xmlCommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentsFile);
+
+    setupAction.IncludeXmlComments(xmlCommentsFullPath);
+
     setupAction.AddSecurityDefinition("BikeshopApiBearerAuth", new OpenApiSecurityScheme()
     {
         Type = SecuritySchemeType.Http,
@@ -34,8 +40,6 @@ builder.Services.AddSwaggerGen(setupAction =>
         }
     });
 });
-
-
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddAuthentication("Bearer")
     .AddJwtBearer(options =>
@@ -53,7 +57,8 @@ builder.Services.AddAuthentication("Bearer")
     });
 builder.Services.AddDbContext<BikeshopContext>(
     dbContextOptions => dbContextOptions.UseSqlServer(
-    builder.Configuration["ConnectionStrings:BikeshopDBConnectionString"]));
+    builder.Configuration["ConnectionStrings:BikeshopDBConnectionString"])
+    );
 builder.Services.AddScoped<IBikeshopRepository, BikeshopRepository>();
 
 

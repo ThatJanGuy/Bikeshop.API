@@ -38,7 +38,16 @@ namespace Bikeshop.API.Controllers
             this.configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         }
 
+        /// <summary>
+        /// Get an authorisation token.
+        /// </summary>
+        /// <param name="authenticationRequestBody">The login data to be verified.</param>
+        /// <response code="200">On successful login data validation a Json Web Token is returned.</response>
+        /// <response code="401">Is returned when the login data is missing or can't be validated.</response>
         [HttpPost("authenticate")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult Authenticate(AuthenticationRequestBody authenticationRequestBody)
         {
             // Step 1: Validate username and password

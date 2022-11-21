@@ -1,0 +1,162 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Bikeshop.API</name>
+    </assembly>
+    <members>
+        <member name="M:Bikeshop.API.Controllers.AuthenticationController.Authenticate(Bikeshop.API.Controllers.AuthenticationController.AuthenticationRequestBody)">
+            <summary>
+            Get an authorisation token.
+            </summary>
+            <param name="authenticationRequestBody">The login data to be verified.</param>
+            <response code="200">On successful login data validation a Json Web Token is returned.</response>
+            <response code="401">Is returned when the login data is missing or can't be validated.</response>
+        </member>
+        <member name="M:Bikeshop.API.Controllers.BikeController.GetBikes(System.String,System.Int32,System.Int32)">
+            <summary>
+            Get a list of bikes and pagination metadata.
+            </summary>
+            <param name="searchQuery">Searches the "name", "shortDescription", and "FullDescription" fields of all bikes. Only returns hits.</param>
+            <param name="pageNumber">Returns only entries on this specific page.</param>
+            <param name="pageSize">Limits the return to this many entries. Max is 25.</param>
+            <remarks>Also returns an "X-Pagination" header that holds pagination data.</remarks>
+            <response code="200">Doesnt't require authentication. Returns the requested bikes and the "X-Pagination" header. It is empty when the searchQuery wasn't found.</response>
+        </member>
+        <member name="M:Bikeshop.API.Controllers.BikeController.GetBike(System.Guid)">
+            <summary>
+            Get a bike by id.
+            </summary>
+            <remarks>Doesn't require authentication.</remarks>
+            <param name="bikeId">The id of the bike you want.</param>
+            <response code="200">Returns the requested bike.</response>
+        </member>
+        <member name="M:Bikeshop.API.Controllers.BikeController.CreateBike(System.Guid,Bikeshop.API.Models.BikeForCreationOrFullUpdateDto)">
+            <summary>
+            Create a new bike.
+            </summary>
+            <param name="categoryId">The id of the category the bike shall belong to once created.</param>
+            <param name="bike">The bike's information.</param>
+            <response code="201">Returns the created bike.</response>
+            <response code="404">Is returned when the category id doesn't exist.</response>
+        </member>
+        <member name="M:Bikeshop.API.Controllers.BikeController.UpdateBike(System.Guid,Bikeshop.API.Models.BikeForCreationOrFullUpdateDto)">
+            <summary>
+            Update an existing bike.
+            </summary>
+            <param name="bikeId">The id of the bike to be updated.</param>
+            <param name="bike">The bike's new information.</param>
+            <remarks>Only full updates are supported. Trying to partially update will damage your data!</remarks>
+            <response code="204">Is returned on successful update.</response>
+            <response code="404">Is returned when the bikeId to update doesn't exist.</response>
+        </member>
+        <member name="M:Bikeshop.API.Controllers.BikeController.DeleteBike(System.Guid)">
+            <summary>
+            Delete a bike by id.
+            </summary>
+            <param name="bikeId">The id of the bike that shall be deleted.</param>
+            <response code="204">Is returned on successful delete.</response>
+            <response code="404">Is returned when the bikeId to delete doesn't exist.</response>
+        </member>
+        <member name="M:Bikeshop.API.Controllers.CategoryController.GetCategories">
+            <summary>
+            Get the full category list.
+            </summary>
+            <remarks>Doesn't require authentication.</remarks>
+        </member>
+        <member name="M:Bikeshop.API.Controllers.CategoryController.GetCategory(System.Guid,System.Boolean)">
+            <summary>
+            Get a specific category by id. Optionally add all bikes of that category.
+            </summary>
+            <param name="categoryId">The id of the category to return.</param>
+            <param name="includeBikes">Whether or not all bikes of the category shall be returned as well.</param>
+            <remarks>Doesn't require authentication.</remarks>
+            <response code="200">Returns the requested category. If requested contains all associated bikes.</response>
+            <response code="404">Is returned if the requested categoryId doesn't exist.</response>
+        </member>
+        <member name="M:Bikeshop.API.Controllers.CategoryController.CreateCategory(Bikeshop.API.Models.CategoryForCreationOrFullUpdateDto)">
+            <summary>
+            Create a new category.
+            </summary>
+            <param name="category">The new category's information.</param>
+            <response code="201">Returns the created category.</response>
+        </member>
+        <member name="M:Bikeshop.API.Controllers.CategoryController.UpdateCategory(System.Guid,Bikeshop.API.Models.CategoryForCreationOrFullUpdateDto)">
+            <summary>
+            Update an existing category.
+            </summary>
+            <param name="categoryId">The id of the category to be updated.</param>
+            <param name="category">The new category's information.</param>
+            <remarks>Only full updates are supported. Trying to partially update will damage your data!</remarks>
+            <response code="204">Is returned on successful update.</response>
+            <response code="404">Is returned when the categoryId to update doesn't exist.</response>
+        </member>
+        <member name="M:Bikeshop.API.Controllers.CategoryController.DeleteCategory(System.Guid)">
+            <summary>
+            Delete a category by id.
+            </summary>
+            <param name="categoryId">The id of the category to be updated.</param>
+            <response code="204">Is returned on successful delete.</response>
+            <response code="404">Is returned when the categoryId to delete doesn't exist.</response>
+        </member>
+        <member name="T:Bikeshop.API.Migrations.initial">
+            <inheritdoc />
+        </member>
+        <member name="M:Bikeshop.API.Migrations.initial.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Bikeshop.API.Migrations.initial.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Bikeshop.API.Migrations.initial.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:Bikeshop.API.Migrations.SeedingData">
+            <inheritdoc />
+        </member>
+        <member name="M:Bikeshop.API.Migrations.SeedingData.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Bikeshop.API.Migrations.SeedingData.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Bikeshop.API.Migrations.SeedingData.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:Bikeshop.API.Migrations.AddsCategories">
+            <inheritdoc />
+        </member>
+        <member name="M:Bikeshop.API.Migrations.AddsCategories.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Bikeshop.API.Migrations.AddsCategories.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Bikeshop.API.Migrations.AddsCategories.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:Bikeshop.API.Migrations.AddsCategoriesToSeedData">
+            <inheritdoc />
+        </member>
+        <member name="M:Bikeshop.API.Migrations.AddsCategoriesToSeedData.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Bikeshop.API.Migrations.AddsCategoriesToSeedData.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Bikeshop.API.Migrations.AddsCategoriesToSeedData.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:Bikeshop.API.Migrations.ImageFieldAdded">
+            <inheritdoc />
+        </member>
+        <member name="M:Bikeshop.API.Migrations.ImageFieldAdded.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Bikeshop.API.Migrations.ImageFieldAdded.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Bikeshop.API.Migrations.ImageFieldAdded.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+    </members>
+</doc>
